@@ -7,7 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D7B74E5E218253A70087F56E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D7B74E5D218253A70087F56E /* main.cpp */; };
+		D76AC063219180650005CDFB /* SpoofedTerminalObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D76AC061219180650005CDFB /* SpoofedTerminalObject.cpp */; };
+		D76AC066219182D90005CDFB /* Story.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D76AC064219182D90005CDFB /* Story.cpp */; };
+		D76AC0692191836A0005CDFB /* CoreMechanics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D76AC0672191836A0005CDFB /* CoreMechanics.cpp */; };
+		D76AC06C219183910005CDFB /* User.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D76AC06A219183910005CDFB /* User.cpp */; };
+		D76AC0702192195A0005CDFB /* entitySchubert.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D76AC06E2192195A0005CDFB /* entitySchubert.cpp */; };
+		D76AC073219219770005CDFB /* gameEntity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D76AC071219219770005CDFB /* gameEntity.cpp */; };
+		D7B74E5E218253A70087F56E /* adventure.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D7B74E5D218253A70087F56E /* adventure.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -23,8 +29,20 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D76AC061219180650005CDFB /* SpoofedTerminalObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SpoofedTerminalObject.cpp; sourceTree = "<group>"; };
+		D76AC062219180650005CDFB /* SpoofedTerminalObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SpoofedTerminalObject.h; sourceTree = "<group>"; };
+		D76AC064219182D90005CDFB /* Story.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Story.cpp; sourceTree = "<group>"; };
+		D76AC065219182D90005CDFB /* Story.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Story.h; sourceTree = "<group>"; };
+		D76AC0672191836A0005CDFB /* CoreMechanics.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CoreMechanics.cpp; sourceTree = "<group>"; };
+		D76AC0682191836A0005CDFB /* CoreMechanics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreMechanics.h; sourceTree = "<group>"; };
+		D76AC06A219183910005CDFB /* User.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = User.cpp; sourceTree = "<group>"; };
+		D76AC06B219183910005CDFB /* User.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		D76AC06E2192195A0005CDFB /* entitySchubert.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = entitySchubert.cpp; sourceTree = "<group>"; };
+		D76AC06F2192195A0005CDFB /* entitySchubert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = entitySchubert.h; sourceTree = "<group>"; };
+		D76AC071219219770005CDFB /* gameEntity.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = gameEntity.cpp; sourceTree = "<group>"; };
+		D76AC072219219770005CDFB /* gameEntity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gameEntity.h; sourceTree = "<group>"; };
 		D7B74E5A218253A70087F56E /* TermianlSchubert */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TermianlSchubert; sourceTree = BUILT_PRODUCTS_DIR; };
-		D7B74E5D218253A70087F56E /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		D7B74E5D218253A70087F56E /* adventure.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = adventure.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,7 +75,19 @@
 		D7B74E5C218253A70087F56E /* TermianlSchubert */ = {
 			isa = PBXGroup;
 			children = (
-				D7B74E5D218253A70087F56E /* main.cpp */,
+				D7B74E5D218253A70087F56E /* adventure.cpp */,
+				D76AC061219180650005CDFB /* SpoofedTerminalObject.cpp */,
+				D76AC062219180650005CDFB /* SpoofedTerminalObject.h */,
+				D76AC064219182D90005CDFB /* Story.cpp */,
+				D76AC065219182D90005CDFB /* Story.h */,
+				D76AC0672191836A0005CDFB /* CoreMechanics.cpp */,
+				D76AC0682191836A0005CDFB /* CoreMechanics.h */,
+				D76AC06A219183910005CDFB /* User.cpp */,
+				D76AC06B219183910005CDFB /* User.h */,
+				D76AC06E2192195A0005CDFB /* entitySchubert.cpp */,
+				D76AC06F2192195A0005CDFB /* entitySchubert.h */,
+				D76AC071219219770005CDFB /* gameEntity.cpp */,
+				D76AC072219219770005CDFB /* gameEntity.h */,
 			);
 			path = TermianlSchubert;
 			sourceTree = "<group>";
@@ -118,7 +148,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D7B74E5E218253A70087F56E /* main.cpp in Sources */,
+				D7B74E5E218253A70087F56E /* adventure.cpp in Sources */,
+				D76AC063219180650005CDFB /* SpoofedTerminalObject.cpp in Sources */,
+				D76AC0692191836A0005CDFB /* CoreMechanics.cpp in Sources */,
+				D76AC066219182D90005CDFB /* Story.cpp in Sources */,
+				D76AC0702192195A0005CDFB /* entitySchubert.cpp in Sources */,
+				D76AC073219219770005CDFB /* gameEntity.cpp in Sources */,
+				D76AC06C219183910005CDFB /* User.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

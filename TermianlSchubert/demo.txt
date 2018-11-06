@@ -1,0 +1,20 @@
+//NOTE: because this is a different style of a text game there are not really any "rooms", at least non in the traditional adventure game sense.
+// we are thinking of adding some towards the end of the game where you actually leave the computer to stop
+// Phil Schubert. Though the directories can be interpreted as "rooms"
+// ****OTHER NOTE: there are extra classes that was not in the outline, they have no function at the moment, i just put them there so to use in the future.
+// was just an idea for better data managment down the road for this project
+// OTHER OTHER NOTE: this is a really fun assignment :)
+
+*press enter* (AFTER TEXT APPEARS)
+type "hack"
+*press enter* (AFTER TEXT APPEARS)
+enter any name you want (example: "Prather")
+//Now (after broken loading screen) you should be in the root directory of phil Schuberts MacBook
+type "help"
+type "cd topsecretfiles"
+press enter button a few times just to demonstrate that it acts similar to other terminals
+type "ls"
+type "read russianTransmission.txt"
+
+//This is bassically all we have functioning so far, there is some code for more functions but its not really at its best at the moment so its not accessable
+// Other directories that work are: "home", "users", "downloads", and "topsecretfiles"
