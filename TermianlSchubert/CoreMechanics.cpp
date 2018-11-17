@@ -7,6 +7,7 @@
 //
 
 #include "CoreMechanics.h"
+//#include "User.h"
 #include <vector>
 #include <iostream>
 #include <sstream>
@@ -33,6 +34,7 @@ void CoreMechanics::populateDir(){
     directories[5] = "home";
     directories[6] = "desktop";
     directories[7] = "myhome"; //TODO: migrate this and delete it
+    //TODO: simplify the direcoties, for easy nav
 }
 
 void CoreMechanics::populateCommands(){
@@ -77,6 +79,21 @@ void CoreMechanics::clearScreen()const{
 void CoreMechanics::animationLoading(int numberOfLoops)const{
     clearScreen();
     std::cout << "Booting " << '-' << std::flush;
+    for (int x = 0; x < numberOfLoops; x++) {
+        sleep(1);
+        std::cout << "\b\\" << std::flush;
+        sleep(1);
+        std::cout << "\b|" << std::flush;
+        sleep(1);
+        std::cout << "\b/" << std::flush;
+        sleep(1);
+        std::cout << "\b-" << std::flush;
+    }
+    clearScreen();
+}
+void CoreMechanics::animationLoading(int numberOfLoops, string passedText)const{
+    clearScreen();
+    std::cout << passedText << " -" << std::flush;
     for (int x = 0; x < numberOfLoops; x++) {
         sleep(1);
         std::cout << "\b\\" << std::flush;
@@ -165,7 +182,8 @@ void CoreMechanics::renderDirContents(string currentDir){
         cout << "internetExplorer.exe\n";
         cout << "ShoppingList.txt\n";
         string temp;
-        temp = "cristian:~ cristiansMacBook$ ";
+        temp =  gamePlayer->nameGET() + ":~ cristiansMacBook$ ";
+        //TODO: make sure you figure out a way to use the users name
         dirPathSET(temp);
         currentDirLocationSET("myhome");
         cout << dirPath;
@@ -177,6 +195,10 @@ void CoreMechanics::beginTerminalLoop(string startingDir){
     // this is phil Schuberts Terminal loop
    // the current dir contents should already be displayed along with the path.
     //updateDirPath();// set the directory back to default
+    //TODO: add a "capture" command to add exe files to the user directory
+    // /\ this is obviously not a real terminal function but hey thats not the point
+    //TODO: use stack to keep track of directories traveled
+    currentDirLocationSET("myhome");
     if(startingDir == "myhome"){
         renderDirContents("myhome");
     }
@@ -190,7 +212,7 @@ void CoreMechanics::beginTerminalLoop(string startingDir){
         
         if(input == "cd"){
             if(inputStream >> input){
-                if(isSupportedDir(input)){
+                if(isSupportedDir(input) and currentDirLocationGET() != "myhome"){
                     currentDirLocation = input;
                     updateDirPath();
                     cout << dirPath;
@@ -209,7 +231,7 @@ void CoreMechanics::beginTerminalLoop(string startingDir){
             renderDirContents(currentDirLocation);
         }
         else if(input == "help"){
-            cout << "\nTerminal Commands:" << endl << "cd \'direectory name\' - navigates to specified directory\nls - lists the contents of current Dir\nread \'file name\' - read out specified file if supported\n run - \'run exe files in terminal\'\n";
+            cout << "\nTerminal Commands:" << endl << "cd \'direectory name\' - navigates to specified directory\nls - lists the contents of current Dir\nread \'file name\' - read out specified file if supported\nrun - \'run exe files in terminal\'\n";
             cout << dirPath;
         }
         else if(input == "read"){
@@ -252,6 +274,7 @@ void CoreMechanics::myTerminal()const{ //TODO: delete this and move it to new cl
 
 
 void CoreMechanics::read(string filename)const{
+    //TODO: make a textStorage class for all of this, call it whatever
     if(filename == "russianTransmission.txt"){
         string text = "\nMr.Shubert has no idea of our EVIL plan...\nwe should move forward with activation soon, just in time for wildcat week >:)\nas long as no one hacks into his computer and decypts our evil activation files (of which there are 3) and combines them to gain acces to our internal systems and shut down our evil plans forever then this missian is GOLDEN heh, man im so smart\n\nVlad's Diaries entry #21\n\n";
         printTextAnimation(text);
@@ -263,7 +286,7 @@ void CoreMechanics::read(string filename)const{
 
 void CoreMechanics::run(string exeName){
     if(exeName == "hackPhilSchubert.exe"){
-        animationLoading(1); //!!!:
+        animationLoading(1, "Hacking Phil Schubert's MacBook"); //!!: ok gamers
         dirPathSET("Schubert:~ philSchubertMacBook$ ");
         currentDirLocationSET("home");
         updateDirPath();

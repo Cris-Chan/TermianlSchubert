@@ -9,13 +9,12 @@
 #include <iostream>
 #include "Story.h"
 #include "CoreMechanics.h"
-#include "User.h"
-#include "SpoofedTerminalObject.h"
+//#include "User.h"
 using namespace std;
 int main() {
     Story mainStory;
-    User hero;
-    CoreMechanics core;
+    User *hero = new User();
+    CoreMechanics core(hero);
     string tempString;
     
 //    cout << "Starting...\n";
@@ -33,6 +32,7 @@ int main() {
         return 0;
     }
     // type anthing else out and you decide to hack schubert lol (this will change in the future)
+    //TODO: actually check what they typed here
     
     core.clearScreen();
     core.printTextAnimation("*you whisper to yourself* \"Forgive me Mr.Schubert.... but I must go all out just this once\" \n");
@@ -40,7 +40,7 @@ int main() {
     core.printTextAnimation("*You pull out your laptop* \n SYSTEM PROMPT: \" Please Enter your password (Hint, its your Name)\":  ");
     getline(cin, tempString);
 //    hero.userNameSET(tempString);
-    hero.nameSET(tempString);
+    hero->nameSET(tempString);
     
     core.animationLoading(2);
     

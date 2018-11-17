@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include "User.h"
 //#include "Story.h"
 //#include "CoreMechanics.h"
 //#include "User.h"
@@ -14,9 +15,11 @@ private:
     string commands[6];
     string currentDirLocation;
     int dirCount;
+    User* gamePlayer;
 public:
-    CoreMechanics(){
+    CoreMechanics(User* player){
 //        nakedPath = "~";
+        gamePlayer = player;
         dirPath = "Schubert:~ philSchubertMacBook$ ";
         populateDir();
         populateCommands();
@@ -50,6 +53,7 @@ public:
     
     
     void animationLoading(int numberOfLoops)const;
+    void animationLoading(int numberOfLoops, string passedText)const;
     
     
     //CONSOLE FUNCTIONS (most likely will be grouped into seperate function)----

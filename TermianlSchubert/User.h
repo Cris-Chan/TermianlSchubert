@@ -4,12 +4,15 @@ using namespace std;
 
 class User : public gameEntity{
 private:
-    string inventory[2];
+    string inventory[5];
     int characterChoice; // this will not be used yet for the draft or ever lmao
 public:
     User() : gameEntity("noName"){
         inventory[0] = "[]";
         inventory[1] = "[]";
+        inventory[2] = "[]";
+        inventory[3] = "[]";
+        inventory[4] = "[]";
         characterChoice = 0;
     }
     User(string passedName) : gameEntity(passedName){
