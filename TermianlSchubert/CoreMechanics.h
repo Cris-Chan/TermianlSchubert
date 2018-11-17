@@ -8,7 +8,7 @@ using namespace std;
 
 class CoreMechanics{
 private:
-    string directories[7];
+    string directories[8];
 //    string nakedPath;
     string dirPath;
     string commands[6];
@@ -55,14 +55,16 @@ public:
     //CONSOLE FUNCTIONS (most likely will be grouped into seperate function)----
     // will stay in core to be consistent with adventure game outline for now---
     
-    void renderDirContents(string currentDir)const;
+    void renderDirContents(string currentDir);
+    void myTerminal()const;
     void beginTerminalLoop(string startingDir);
     void cd(string dir); // unfinished
     void ls()const; // unfinished
     void help()const; // unfinished
     void read(string filename)const; // unfinished
+    void run(string exeName);
     bool isSupportedDir(string dir)const;
-
+    
 };
 
 

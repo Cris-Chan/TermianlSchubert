@@ -47,8 +47,8 @@ int main() {
     // THIS CONCLUDES THE INTRO OF THE GAME (note: this is a rough version)
     // from here on most of the game is within the fake terminal shell (most likely will make a new obejct for this instead of making "core" object handle it)
     
-    core.renderDirContents("home");
-    core.beginTerminalLoop("home");
+//    core.renderDirContents("myhome");
+    core.beginTerminalLoop("myhome");
     
     
     

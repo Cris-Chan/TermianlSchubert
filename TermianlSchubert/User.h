@@ -5,7 +5,7 @@ using namespace std;
 class User : public gameEntity{
 private:
     string inventory[2];
-    int characterChoice; // this will not be used yet for the draft
+    int characterChoice; // this will not be used yet for the draft or ever lmao
 public:
     User() : gameEntity("noName"){
         inventory[0] = "[]";

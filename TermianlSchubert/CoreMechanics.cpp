@@ -12,6 +12,7 @@
 #include <sstream>
 #include <thread>         // std::this_thread::sleep_for
 #include <chrono>
+#include <unistd.h>
 //#include "Story.h"
 //#include "CoreMechanics.h"
 //#include "User.h"
@@ -31,6 +32,7 @@ void CoreMechanics::populateDir(){
     directories[4] = "movies";
     directories[5] = "home";
     directories[6] = "desktop";
+    directories[7] = "myhome"; //TODO: migrate this and delete it
 }
 
 void CoreMechanics::populateCommands(){
@@ -54,7 +56,7 @@ void CoreMechanics::printTextAnimation(const string& message) const{
         cout << c << flush;
         
         // Ask the thread to sleep for at least n millis.
-        sleep_for(milliseconds(100));
+        sleep_for(milliseconds(0));
     }
 }
 
@@ -73,16 +75,17 @@ void CoreMechanics::clearScreen()const{
 }
 
 void CoreMechanics::animationLoading(int numberOfLoops)const{
-    for(int x = 0; x < numberOfLoops; x++){
-        clearScreen();
-        cout << "Loading.";
-        sleep_for(milliseconds(1000));
-        clearScreen();
-        cout << "Loading..";
-        sleep_for(milliseconds(1000));
-        clearScreen();
-        cout << "Loading...";
-        sleep_for(milliseconds(1000));
+    clearScreen();
+    std::cout << "Booting " << '-' << std::flush;
+    for (int x = 0; x < numberOfLoops; x++) {
+        sleep(1);
+        std::cout << "\b\\" << std::flush;
+        sleep(1);
+        std::cout << "\b|" << std::flush;
+        sleep(1);
+        std::cout << "\b/" << std::flush;
+        sleep(1);
+        std::cout << "\b-" << std::flush;
     }
     clearScreen();
 }
@@ -100,12 +103,12 @@ bool CoreMechanics::isSupportedDir(string dir)const{
 }
 
 
-void CoreMechanics::renderDirContents(string currentDir)const{
+void CoreMechanics::renderDirContents(string currentDir){
     
-    if(isSupportedDir(currentDir) != true){
+    if(isSupportedDir(currentDir) != true and currentDir != "myhome"){
         cout << "\n" << "-bash: cd: " << currentDir << " No such file or directory\n";
         cout << dirPath;
-        return;
+//        return;
     }
     
     if(currentDir == "users"){
@@ -156,24 +159,43 @@ void CoreMechanics::renderDirContents(string currentDir)const{
         cout << dirPath;
     }
     
+    if(currentDir == "myhome"){ // this is not one of Schuberts Directories and should not be accessable from his macbook
+        // TODO: migrate this function to a seperate class
+        cout << "\nhackPhilSchubert.exe\n";
+        cout << "internetExplorer.exe\n";
+        cout << "ShoppingList.txt\n";
+        string temp;
+        temp = "cristian:~ cristiansMacBook$ ";
+        dirPathSET(temp);
+        currentDirLocationSET("myhome");
+        cout << dirPath;
+    }
     
 }
 
 void CoreMechanics::beginTerminalLoop(string startingDir){
+    // this is phil Schuberts Terminal loop
    // the current dir contents should already be displayed along with the path.
+    //updateDirPath();// set the directory back to default
+    if(startingDir == "myhome"){
+        renderDirContents("myhome");
+    }
     string input;
     
     while(true){
         getline(cin, input);
         stringstream inputStream(input);
         inputStream >> input;
+        
+        
         if(input == "cd"){
             if(inputStream >> input){
-//                cout << "DEBUG: ok we in sum " << input << "   " << isSupportedDir(input);
                 if(isSupportedDir(input)){
-//                    cout << "DEBUG: GEEGOLLY";
                     currentDirLocation = input;
                     updateDirPath();
+                    cout << dirPath;
+                } else{
+                    cout << "please enter a valid directory\n";
                     cout << dirPath;
                 }
             }
@@ -187,7 +209,7 @@ void CoreMechanics::beginTerminalLoop(string startingDir){
             renderDirContents(currentDirLocation);
         }
         else if(input == "help"){
-            cout << "\nTerminal Commands:" << endl << "cd \'direectory name\' - navigates to specified directory\nls - lists the contents of current Dir\nread \'file name\' - read out specified file if supported\n";
+            cout << "\nTerminal Commands:" << endl << "cd \'direectory name\' - navigates to specified directory\nls - lists the contents of current Dir\nread \'file name\' - read out specified file if supported\n run - \'run exe files in terminal\'\n";
             cout << dirPath;
         }
         else if(input == "read"){
@@ -195,6 +217,19 @@ void CoreMechanics::beginTerminalLoop(string startingDir){
                 read(input);
                 cout << dirPath;
             }
+        }
+        else if(input == "clear"){
+            clearScreen();
+            cout << dirPath;
+        }
+        else if(input == "run"){
+            if(inputStream >> input){
+                // ideally we would check to make sure this is a valid command befiore running it
+                run(input);
+            } else{
+                cout << "To use run command, please enter the name of the .exe file\n you would like to run\n";
+            }
+            cout << dirPath;
         }
         else{
             cout << dirPath;
@@ -205,12 +240,34 @@ void CoreMechanics::beginTerminalLoop(string startingDir){
 }
 
 
+
+void CoreMechanics::myTerminal()const{ //TODO: delete this and move it to new class
+    
+    while (true) {
+        
+    }
+    
+}
+
+
+
 void CoreMechanics::read(string filename)const{
     if(filename == "russianTransmission.txt"){
-        string text = "\nMr.Shubert has no idea of our EVIL plan...\nwe should move forward with activation soon, just in time for wildcat week >:)\nas long as no one hacks into his computer and decypts our evil activation files (og which there are 3) and combines them to gain acces to our internal systems and shut down our evil plans forever then this missian is GOLDEN heh, man im so smart\n\nVlad's Diaries entry #21\n\n";
+        string text = "\nMr.Shubert has no idea of our EVIL plan...\nwe should move forward with activation soon, just in time for wildcat week >:)\nas long as no one hacks into his computer and decypts our evil activation files (of which there are 3) and combines them to gain acces to our internal systems and shut down our evil plans forever then this missian is GOLDEN heh, man im so smart\n\nVlad's Diaries entry #21\n\n";
         printTextAnimation(text);
     }
     else{
         cout << "unreadable......\n";
+    }
+}
+
+void CoreMechanics::run(string exeName){
+    if(exeName == "hackPhilSchubert.exe"){
+        animationLoading(1); //!!!:
+        dirPathSET("Schubert:~ philSchubertMacBook$ ");
+        currentDirLocationSET("home");
+        updateDirPath();
+    }else{
+        cout << "No exe file named: \'" << exeName << "\'\n";
     }
 }
