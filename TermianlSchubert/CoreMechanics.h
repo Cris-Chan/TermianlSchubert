@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include "User.h"
+#include <stack>
 //#include "Story.h"
 //#include "CoreMechanics.h"
 //#include "User.h"
@@ -16,6 +17,9 @@ private:
     string currentDirLocation;
     int dirCount;
     User* gamePlayer;
+    stack<string> dirStack;
+    string objective;
+    vector<string> majorDirs;
 public:
     CoreMechanics(User* player){
 //        nakedPath = "~";
@@ -25,6 +29,11 @@ public:
         populateCommands();
         dirCount = 7;
         currentDirLocation = "home";
+        objective = "progress";
+        majorDirs.push_back("home");
+        majorDirs.push_back("desktop");
+        majorDirs.push_back("download");
+        majorDirs.push_back("documents");
     }
     
     void populateDir();
@@ -34,10 +43,17 @@ public:
     //GETTER
     string dirPathGET()const{return dirPath;}
     string currentDirLocationGET()const{return currentDirLocation;}
+    string objectiveGET(){return objective;}
     
     //SETTER
     void dirPathSET(string value){dirPath = value;}
     void currentDirLocationSET(string value){currentDirLocation = value;}
+    void objectiveSET(string value){objective = value;}
+    
+    
+    void printObjective(){
+        cout << "\nCurrent objective: " << objectiveGET() << endl;
+    }
     
     
     void updateDirPath(){
@@ -59,6 +75,7 @@ public:
     //CONSOLE FUNCTIONS (most likely will be grouped into seperate function)----
     // will stay in core to be consistent with adventure game outline for now---
     
+    void renderMajorDirs();
     void renderDirContents(string currentDir);
     void myTerminal()const;
     void beginTerminalLoop(string startingDir);
