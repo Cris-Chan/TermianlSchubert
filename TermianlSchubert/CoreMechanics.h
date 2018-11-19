@@ -10,7 +10,7 @@ using namespace std;
 
 class CoreMechanics{
 private:
-    string directories[8];
+    string directories[13];
 //    string nakedPath;
     string dirPath;
     string commands[6];
@@ -18,8 +18,10 @@ private:
     int dirCount;
     User* gamePlayer;
     stack<string> dirStack;
+    vector<string> captureableFiles;
     string objective;
     vector<string> majorDirs;
+    bool finalSceneHappened;
 public:
     CoreMechanics(User* player){
 //        nakedPath = "~";
@@ -27,13 +29,20 @@ public:
         dirPath = "Schubert:~ philSchubertMacBook$ ";
         populateDir();
         populateCommands();
-        dirCount = 7;
+        dirCount = 13;
         currentDirLocation = "home";
         objective = "progress";
         majorDirs.push_back("home");
         majorDirs.push_back("desktop");
         majorDirs.push_back("download");
         majorDirs.push_back("documents");
+        
+        captureableFiles.push_back("communistActivationFile1.rus");
+        captureableFiles.push_back("communistActivationFile3.rus");
+        captureableFiles.push_back("communistActivationFile2.rus");
+        captureableFiles.push_back("TerminalPassword.bat");
+        
+        finalSceneHappened = false;
     }
     
     void populateDir();
@@ -44,11 +53,13 @@ public:
     string dirPathGET()const{return dirPath;}
     string currentDirLocationGET()const{return currentDirLocation;}
     string objectiveGET(){return objective;}
+    bool finalSceneHappenedGET(){return finalSceneHappened;}
     
     //SETTER
     void dirPathSET(string value){dirPath = value;}
     void currentDirLocationSET(string value){currentDirLocation = value;}
     void objectiveSET(string value){objective = value;}
+    void finalSceneHappenedSET(bool value){finalSceneHappened = value;}
     
     
     void printObjective(){
@@ -64,7 +75,7 @@ public:
     void printTextAnimation(const string& message)const;
     
     
-    void prompEnterToContinue()const{string nothing; getline(cin, nothing);}
+    void prompEnterToContinue()const{cout << "\n(press enter)\n";string nothing; getline(cin, nothing);}
     string getChoice()const;
     
     
@@ -85,6 +96,8 @@ public:
     void read(string filename)const; // unfinished
     void run(string exeName);
     bool isSupportedDir(string dir)const;
+    bool isCaptureReady(string file)const;
+    void startFinalScene();
     
 };
 

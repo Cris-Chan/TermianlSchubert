@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D76AC063219180650005CDFB /* SpoofedTerminalObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D76AC061219180650005CDFB /* SpoofedTerminalObject.cpp */; };
 		D76AC066219182D90005CDFB /* Story.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D76AC064219182D90005CDFB /* Story.cpp */; };
 		D76AC0692191836A0005CDFB /* CoreMechanics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D76AC0672191836A0005CDFB /* CoreMechanics.cpp */; };
 		D76AC06C219183910005CDFB /* User.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D76AC06A219183910005CDFB /* User.cpp */; };
@@ -29,8 +28,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		D76AC061219180650005CDFB /* SpoofedTerminalObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SpoofedTerminalObject.cpp; sourceTree = "<group>"; };
-		D76AC062219180650005CDFB /* SpoofedTerminalObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SpoofedTerminalObject.h; sourceTree = "<group>"; };
 		D76AC064219182D90005CDFB /* Story.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Story.cpp; sourceTree = "<group>"; };
 		D76AC065219182D90005CDFB /* Story.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Story.h; sourceTree = "<group>"; };
 		D76AC0672191836A0005CDFB /* CoreMechanics.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CoreMechanics.cpp; sourceTree = "<group>"; };
@@ -76,8 +73,6 @@
 			isa = PBXGroup;
 			children = (
 				D7B74E5D218253A70087F56E /* adventure.cpp */,
-				D76AC061219180650005CDFB /* SpoofedTerminalObject.cpp */,
-				D76AC062219180650005CDFB /* SpoofedTerminalObject.h */,
 				D76AC064219182D90005CDFB /* Story.cpp */,
 				D76AC065219182D90005CDFB /* Story.h */,
 				D76AC0672191836A0005CDFB /* CoreMechanics.cpp */,
@@ -149,7 +144,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D7B74E5E218253A70087F56E /* adventure.cpp in Sources */,
-				D76AC063219180650005CDFB /* SpoofedTerminalObject.cpp in Sources */,
 				D76AC0692191836A0005CDFB /* CoreMechanics.cpp in Sources */,
 				D76AC066219182D90005CDFB /* Story.cpp in Sources */,
 				D76AC0702192195A0005CDFB /* entitySchubert.cpp in Sources */,

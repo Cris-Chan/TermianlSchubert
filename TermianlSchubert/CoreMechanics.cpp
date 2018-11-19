@@ -34,7 +34,12 @@ void CoreMechanics::populateDir(){
     directories[4] = "movies";
     directories[5] = "home";
     directories[6] = "desktop";
-    directories[7] = "myhome"; //TODO: migrate this and delete it
+    directories[7] = "myhome";
+    directories[8] = "workFiles";
+    directories[9] = "memeFolder";
+    directories[10] = "chromePasswords";
+    directories[11] = "movieScripts";
+    directories[12] = "workFiles";
     //TODO: simplify the direcoties, for easy nav
 }
 
@@ -60,7 +65,8 @@ void CoreMechanics::printTextAnimation(const string& message) const{
         cout << c << flush;
         
         // Ask the thread to sleep for at least n millis.
-        sleep_for(milliseconds(0));
+        sleep_for(milliseconds(20));
+        
     }
 }
 
@@ -82,13 +88,13 @@ void CoreMechanics::animationLoading(int numberOfLoops)const{
     clearScreen();
     std::cout << "Booting " << '-' << std::flush;
     for (int x = 0; x < numberOfLoops; x++) {
-        sleep(0);
+        sleep(1);
         std::cout << "\b\\" << std::flush;
-        sleep(0);
+        sleep(1);
         std::cout << "\b|" << std::flush;
-        sleep(0);
+        sleep(1);
         std::cout << "\b/" << std::flush;
-        sleep(0);
+        sleep(1);
         std::cout << "\b-" << std::flush;
     }
     clearScreen();
@@ -97,13 +103,13 @@ void CoreMechanics::animationLoading(int numberOfLoops, string passedText)const{
     clearScreen();
     std::cout << passedText << " -" << std::flush;
     for (int x = 0; x < numberOfLoops; x++) {
-        sleep(0);
+        sleep(1);
         std::cout << "\b\\" << std::flush;
-        sleep(0);
+        sleep(1);
         std::cout << "\b|" << std::flush;
-        sleep(0);
+        sleep(1);
         std::cout << "\b/" << std::flush;
-        sleep(0);
+        sleep(1);
         std::cout << "\b-" << std::flush;
     }
     clearScreen();
@@ -177,16 +183,63 @@ void CoreMechanics::renderDirContents(string currentDir){
         cout << "HotSauceCollage.psd\n";
         cout << "dailynotes.txt\n";
         cout << "spotify.app\n";
+        cout << "workFiles\n";
 //        cout << "notes2.txt\n";
 //        cout << "notes4.txt\n";
+        cout << dirPath;
+    }
+    if(currentDir == "workFiles"){
+        cout << "\nwork_agenda.txt\n";
+        cout << "speech.txt";
+        cout << "\nfunnyCats.png";
+        cout << "\nchromePasswords";
+        cout << "\nfantasyFootballLeague.excel";
+        cout << "\nmovieScripts";
+        cout << "\nwildcatLogo.psd";
+        cout << "\norderMcdonalds.exe\n"; //TODO: add mcdonalds.exe to run function
+ 
+        cout << dirPath;
+    }
+    if(currentDir == "memeFolder"){
+        cout << "\ngarfieldMemes.png\n";
+        cout << "deepFriedMemes,jpg\n";
+        cout << "koreanMusic.mp3\n";
+        cout << "russianMusic.mp3\n";
+        cout << "communistActivationFile1.rus\n";
+        
+        cout << dirPath;
+    }
+    
+    if(currentDir == "chromePasswords"){
+        //TODO: add all of these to the read fucntion
+        cout << "\ngarfieldMemes.png\n";
+        cout << "acupassword.txt\n";
+        cout << "dominosPassword.txt\n";
+        cout << "googlePassword.txt\n";
+        cout << "TerminalPassword.bat\n";
+        cout << "spotifyPassword.txt\n";
+        cout << dirPath;
+    }
+    
+    if (currentDir == "movieScripts") {
+        //TODO: add these to the read function
+        cout << "\nlalaland.txt\n";
+        cout << "lalaland.txt\n";
+        
         cout << dirPath;
     }
     
     
     if(currentDir == "downloads"){
-        cout << "\nrussianAgenda.txt\n";
-        cout << "FullBeeMovie.mov\n";
+        cout << "\nFullBeeMovie.mov\n";
+        cout << "moreRamDownload.zip\n";
         cout << "cat.png\n";
+        cout << "cat(2).png\n";
+        cout << "cat(3).png\n";
+        cout << "cat(4).png\n";
+        cout << "cat(5).png\n";
+        cout << "cat(6).png\n";
+        cout << "communistActivationFile2.rus\n";
         cout << dirPath;
     }
     
@@ -218,6 +271,8 @@ void CoreMechanics::renderDirContents(string currentDir){
         currentDirLocationSET("myhome");
         cout << dirPath;
     }
+    
+    
     
 }
 
@@ -273,7 +328,7 @@ void CoreMechanics::beginTerminalLoop(string startingDir){
                 cout << "inventory - this will display you current inventory\n";
             }
             if (gamePlayer->hasCommand("capture")) {
-                cout << "capture <object> - this will capture any capturable object\n";
+                cout << "capture <object> - this will capture any capturable object (mostly intended for .bat and .rus files)\n";
             }
             cout << dirPath;
         }
@@ -291,6 +346,9 @@ void CoreMechanics::beginTerminalLoop(string startingDir){
             if(inputStream >> input){
                 // ideally we would check to make sure this is a valid command befiore running it
                 run(input);
+                if (finalSceneHappenedGET()) { // !!!: this will execute if they run literally anything
+                    break;
+                }
             } else{
                 cout << "To use run command, please enter the name of the .exe file\n you would like to run\n";
             }
@@ -311,9 +369,40 @@ void CoreMechanics::beginTerminalLoop(string startingDir){
         else if(input == "capture" and gamePlayer->hasCommand("capture")){
             
             if (inputStream >> input) {
-                //TODO: add a checking system to make sure the object should be captureable
-                gamePlayer->addToInventory(input);
-                cout << "captured: " << input << endl;
+                if (input == "communistActivationFile1.rus" and (currentDirLocationGET() == "memeFolder") and (gamePlayer->isInInventory("communistActivationFile1.rus") == false)) {
+                    gamePlayer->addToInventory(input);
+                    gamePlayer->foundFilesCountSET((gamePlayer->foundFilesCountGET() + 1));
+                    cout << "captured: " << input << endl;
+                    if (gamePlayer->foundFilesCountGET() == 3) {
+                        prompEnterToContinue();
+                        startFinalScene();
+                    }
+                }else if (input == "communistActivationFile2.rus" and (currentDirLocationGET() == "downloads")and (gamePlayer->isInInventory("communistActivationFile2.rus")) == false) {
+                    gamePlayer->addToInventory(input);
+                    gamePlayer->foundFilesCountSET((gamePlayer->foundFilesCountGET() + 1));
+                    cout << "captured: " << input << endl;
+                    if (gamePlayer->foundFilesCountGET() == 3) {
+                        prompEnterToContinue();
+                        startFinalScene();
+                    }
+                }else if (input == "communistActivationFile3.rus" and (currentDirLocationGET() == "topsecretfiles") and (gamePlayer->isInInventory("communistActivationFile3.rus") == false)) {
+                    gamePlayer->addToInventory(input);
+                    gamePlayer->foundFilesCountSET((gamePlayer->foundFilesCountGET() + 1));
+                    cout << "captured: " << input << endl;
+                    if (gamePlayer->foundFilesCountGET() == 3) {
+                        prompEnterToContinue();
+                        startFinalScene();
+                    }
+                }else if (input == "TerminalPassword.bat" and (currentDirLocationGET() == "chromePasswords")and (gamePlayer->isInInventory("TerminalPassword.bat") == false)) {
+                    gamePlayer->addToInventory(input);
+                    cout << "captured: " << input << endl;
+                    printTextAnimation("System: You have been granted sudo privillages.\n");
+                    prompEnterToContinue();
+                    gamePlayer->isSudoUserSET(true);
+                }else{
+                    cout << input << " cannot be captured\n";
+                }
+                
             }
             
             cout << dirPath;
@@ -331,7 +420,7 @@ void CoreMechanics::beginTerminalLoop(string startingDir){
 void CoreMechanics::read(string filename)const{
     //TODO: make a textStorage class for all of this, call it whatever
     if(filename == "russianTransmission.txt"){
-        string text = "\nMr.Shubert has no idea of our EVIL plan...\nwe should move forward with activation soon, just in time for wildcat week >:)\nas long as no one hacks into his computer and decypts our evil activation files (of which there are 3) and combines them to gain acces to our internal systems and shut down our evil plans forever then this missian is GOLDEN heh, man im so smart\n\nVlad's Diaries entry #21\n\n";
+        string text = "\nMr.Shubert has no idea of our EVIL plan...\nwe should move forward with activation soon, just in time for wildcat week >:)\n i cant wait to activate our sleeper agent Phil Schubert to BODY SLAM the school spirit out of willy the wildcat\nas long as no one hacks into his computer and decypts our evil activation files (of which there are 3) and combines them to gain acces to our internal systems and shut down our evil plans forever then this missian is GOLDEN heh, man im so smart\n\nVlad's Diaries entry #21\n\n";
         printTextAnimation(text);
         if(gamePlayer->hasReadRussianTutorialGET() == false){
             prompEnterToContinue();
@@ -347,10 +436,10 @@ void CoreMechanics::read(string filename)const{
             gamePlayer->addUnlockedCommand("capture");
             gamePlayer->hasReadRussianTutorialSET(true);
             
-            printTextAnimation("you have unlocked the \'mission\', \'inventory\', and \'capture\' unix command\nmission will display your current game objective to progress the story\ncapture will allow you to transfer certain files to you computers inventory and store them for later\ninventory will display any file you have captured\n");
+            printTextAnimation("you have unlocked the \'mission\', \'inventory\', and \'capture\' unix command\nmission will display your current game objective to progress the story\ncapture will allow you to transfer certain .bat and .rus files to you computers inventory and store them for later\ninventory will display any file you have captured\n");
             prompEnterToContinue();
         }
-    }
+    } //travis: add .txt files here
     else{
         cout << "unreadable......\n";
     }
@@ -364,13 +453,16 @@ void CoreMechanics::run(string exeName){
         currentDirLocationSET("home");
         dirStack.push("home");
         updateDirPath();
-    }else{ // add more if statments here to catch exe files that are there just for laughs and you want custom errors for, other wise the basic error will catch it.
-        if(exeName == "internetExplorer.exe"){
+    }else if(exeName == "internetExplorer.exe"){
             cout << "System Prompt: who the heck uses internet explorer, \n please run somthing, ANYTHNING better than internet explorer\n";
-        }
-        else
-            cout << "No exe file named: \'" << exeName << "\'\n"; // Basic response
+    }else if(exeName == "hackTheRussians.exe" and finalSceneHappenedGET()){
+        animationLoading(1, "загрузка ");
+        animationLoading(1, "хорошо, это эпично ");
+        animationLoading(1, "русский текст ");
+    }else{
+        cout << "No exe file named: \'" << exeName << "\'\n"; // Basic response
     }
+
 }
 
 void CoreMechanics::renderMajorDirs(){
@@ -379,4 +471,27 @@ void CoreMechanics::renderMajorDirs(){
         cout << *itr << endl;
     }
 //    cout << endl;
+}
+
+bool CoreMechanics::isCaptureReady(string file)const{
+    bool answer = false;
+    
+    for (auto itr = captureableFiles.begin(); itr != captureableFiles.end(); itr++) {
+        if (file == *itr) {
+            answer = true;
+        }
+    }
+    
+    return answer;
+}
+
+void CoreMechanics::startFinalScene(){
+    clearScreen();
+    printTextAnimation("OOOOOOOOWEEEEEEE we got all the commy activation files.\n well looks like it makes up a larger .exe file, i'll run it through the good ol' decypter thing or whatever.\n");
+    prompEnterToContinue();
+    animationLoading(2, "decrypting russian files ");
+    printTextAnimation("hackTheRussians.exe has been added to your inventory!");
+    prompEnterToContinue();
+    finalSceneHappenedSET(true);
+    gamePlayer->addToInventory("hackTheRussians.exe");
 }
