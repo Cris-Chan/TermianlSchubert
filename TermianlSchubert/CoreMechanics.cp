@@ -68,6 +68,7 @@ void CoreMechanics::printTextAnimation(const string& message) const{
         sleep_for(milliseconds(20));
         
     }
+    
 }
 
 string CoreMechanics::getChoice()const{
@@ -97,6 +98,7 @@ void CoreMechanics::animationLoading(int numberOfLoops)const{
         sleep(0);
         std::cout << "\b-" << std::flush;
     }
+    
     clearScreen();
 }
 void CoreMechanics::animationLoading(int numberOfLoops, string passedText)const{
@@ -112,6 +114,7 @@ void CoreMechanics::animationLoading(int numberOfLoops, string passedText)const{
         sleep(0);
         std::cout << "\b-" << std::flush;
     }
+    
     clearScreen();
 }
 
@@ -139,13 +142,13 @@ void CoreMechanics::renderDirContents(string currentDir){
     
     if(currentDir == "acustudentgrades"){
         if(gamePlayer->hasChangedGradesGET()){
-            cout << "\nMac Demarco grades.grade\n";
-            cout << "Bensons grades.grade\n";
-            cout << gamePlayer->nameGET() + "'s grades.grade\n";
-            cout << "Travis Towel's grades.grade\n";
-            cout << "Jerry's grades.grade\n";
-            cout << "cookie recipie.grade\n";
-            cout << "Prather's Grades.grade\n";
+            cout << "\nMac Demarco grades\n";
+            cout << "Bensons grades\n";
+            cout << gamePlayer->nameGET() + "'s grades\n";
+            cout << "Travis Towel's grades\n";
+            cout << "Jerry's grades\n";
+            cout << "cookie recipie\n";
+            cout << "Prather's Grades\n";
             cout << dirPath;
         }
         else{
@@ -165,6 +168,7 @@ void CoreMechanics::renderDirContents(string currentDir){
             prompEnterToContinue();
             cout << dirPath;
         }
+        
     }
     
     if(currentDir == "home"){
@@ -213,18 +217,18 @@ void CoreMechanics::renderDirContents(string currentDir){
     if(currentDir == "chromePasswords"){
         //TODO: add all of these to the read fucntion
         cout << "\ngarfieldMemes.png\n";
-        cout << "acupassword.txt\n"; //TRAVIS
-        cout << "dominosPassword.txt\n"; //TRAVIS
-        cout << "googlePassword.txt\n"; //TRAVIS
+        cout << "acupassword.txt\n";
+        cout << "dominosPassword.txt\n";
+        cout << "googlePassword.txt\n";
         cout << "TerminalPassword.bat\n";
-        cout << "spotifyPassword.txt\n"; //TRAVIS
+        cout << "spotifyPassword.txt\n";
         cout << dirPath;
     }
     
     if (currentDir == "movieScripts") {
         //TODO: add these to the read function
-        cout << "\nlalaland.txt\n"; //TRAVIS
-        cout << "shrek.txt\n"; //TRAVIS
+        cout << "\nlalaland.txt\n";
+        cout << "lalaland.txt\n";
         
         cout << dirPath;
     }
@@ -247,14 +251,14 @@ void CoreMechanics::renderDirContents(string currentDir){
         if(gamePlayer->isSudoUserGET() != true){
             cout << "\nThis directory can only be accessed by a sudo user....\nCome back once you have captured the TerminalPassword.bat file and elevated access to sudo\n";
         }else{
-            cout << "reminder.txt\n"; //TRAVIS
+            cout << "reminder.txt\n";
             cout << "communistActivationFile3.rus\n";
         }
         cout << dirPath;
     }
     
     if(currentDir == "documents"){
-        cout << "\nkungFuPandaMoviewScript.txt\n"; //TRAVIS
+        cout << "\nkungFuPandaMoviewScript.txt\n";
         cout << "newCookiesRecipe.pdf\n";
         cout << "acustudentgrades\n";
         cout << dirPath;
@@ -439,14 +443,16 @@ void CoreMechanics::read(string filename)const{
             printTextAnimation("you have unlocked the \'mission\', \'inventory\', and \'capture\' unix command\nmission will display your current game objective to progress the story\ncapture will allow you to transfer certain .bat and .rus files to you computers inventory and store them for later\ninventory will display any file you have captured\n");
             prompEnterToContinue();
         }
-    }else{ //travis: add the contents of .txt files here before this last else statment
+    } //travis: the contents of .txt files here
+    else{
         cout << "unreadable......\n";
     }
 }
 
 void CoreMechanics::run(string exeName){
     if(exeName == "hackPhilSchubert.exe"){
-        animationLoading(1, "Hacking Phil Schubert's MacBook... ");
+        animationLoading(1, "Hacking Phil Schubert's MacBook");
+        animationLoading(1, "Type \"help\" to get a list of commands you have or ones you've unlocked");
         dirPathSET("Schubert:~ philSchubertMacBook$ ");
         currentDirLocationSET("home");
         dirStack.push("home");

@@ -34,7 +34,7 @@ public:
         objective = "progress";
         majorDirs.push_back("home");
         majorDirs.push_back("desktop");
-        majorDirs.push_back("download");
+        majorDirs.push_back("downloads");
         majorDirs.push_back("documents");
         
         captureableFiles.push_back("communistActivationFile1.rus");
@@ -75,7 +75,11 @@ public:
     void printTextAnimation(const string& message)const;
     
     
-    void prompEnterToContinue()const{cout << "\n(press enter)\n";string nothing; getline(cin, nothing);}
+    void prompEnterToContinue()const{
+        cout << "\n(press enter)\n";
+        string nothing;
+        getline(cin, nothing);
+    }
     string getChoice()const;
     
     
