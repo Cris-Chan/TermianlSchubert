@@ -50,6 +50,9 @@ int main() {
 //    core.renderDirContents("myhome");
     core.beginTerminalLoop("myhome");
     
+    core.clearScreen();
+    core.printTextAnimation("The commys scheme's have been put to a stop\nand now you just might pass bible also, all in a days work\n");
+    core.prompEnterToContinue();
     
     
 }

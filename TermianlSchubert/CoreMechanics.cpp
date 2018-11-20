@@ -40,6 +40,7 @@ void CoreMechanics::populateDir(){
     directories[10] = "chromePasswords";
     directories[11] = "movieScripts";
     directories[12] = "workFiles";
+    directories[13] = "Россия";
     //TODO: simplify the direcoties, for easy nav
 }
 
@@ -70,6 +71,19 @@ void CoreMechanics::printTextAnimation(const string& message) const{
     }
 }
 
+void CoreMechanics::printTextAnimation(int speed, const string& message) const{
+    // Range loops are "for each" constructs; here: for each character in the string
+    for (const char c: message)
+    {
+        // flush is used to make sure the buffer is emptied to the terminal immediately
+        cout << c << flush;
+        
+        // Ask the thread to sleep for at least n millis.
+        sleep_for(milliseconds(speed));
+        
+    }
+}
+
 string CoreMechanics::getChoice()const{
     string response;
     cout << "\n What will you do? : ";
@@ -88,13 +102,13 @@ void CoreMechanics::animationLoading(int numberOfLoops)const{
     clearScreen();
     std::cout << "Booting " << '-' << std::flush;
     for (int x = 0; x < numberOfLoops; x++) {
-        sleep(0);
+        sleep(1);
         std::cout << "\b\\" << std::flush;
-        sleep(0);
+        sleep(1);
         std::cout << "\b|" << std::flush;
-        sleep(0);
+        sleep(1);
         std::cout << "\b/" << std::flush;
-        sleep(0);
+        sleep(1);
         std::cout << "\b-" << std::flush;
     }
     clearScreen();
@@ -103,13 +117,13 @@ void CoreMechanics::animationLoading(int numberOfLoops, string passedText)const{
     clearScreen();
     std::cout << passedText << " -" << std::flush;
     for (int x = 0; x < numberOfLoops; x++) {
-        sleep(0);
+        sleep(1);
         std::cout << "\b\\" << std::flush;
-        sleep(0);
+        sleep(1);
         std::cout << "\b|" << std::flush;
-        sleep(0);
+        sleep(1);
         std::cout << "\b/" << std::flush;
-        sleep(0);
+        sleep(1);
         std::cout << "\b-" << std::flush;
     }
     clearScreen();
@@ -131,10 +145,10 @@ bool CoreMechanics::isSupportedDir(string dir)const{
 void CoreMechanics::renderDirContents(string currentDir){
     
     
-    if(isSupportedDir(currentDir) != true and currentDir != "myhome"){
+    if(isSupportedDir(currentDir) != true and currentDirLocationGET() != "myhome" and currentDirLocationGET() != "Россия"){
         cout << "\n" << "-bash: cd: " << currentDir << " No such file or directory\n";
         cout << dirPath;
-//        return;
+        return;
     }
     
     if(currentDir == "acustudentgrades"){
@@ -151,7 +165,7 @@ void CoreMechanics::renderDirContents(string currentDir){
         else{
             gamePlayer->addUnlockedCommand("read");
             gamePlayer->hasChangedGradesSET(true);
-            objectiveSET("Capture those darn commy activation files (communistActivationFile.rus)!!!"); //TODO: grant the mission command ability way earlier
+            objectiveSET("Search around Mr.Schuberts MacBook for an signs of russian messages"); //TODO: grant the mission command ability way earlier
             clearScreen();
             printTextAnimation("Oh boy, I found my grades!\nWhat should i set my bible class average to?: ");
             int dummyGrade;
@@ -272,6 +286,15 @@ void CoreMechanics::renderDirContents(string currentDir){
         cout << dirPath;
     }
     
+    if (currentDir == "Россия" and finalSceneHappenedGET()) {
+        cout << "\nрабочий стол\n";
+        cout << "тральщик.Фото\n";
+        cout << "endCommySchemes.exe\n";
+        cout << "путинский дневник боб\n";
+        cout << "тральщик.приложение\n";
+        cout << dirPath;
+    }
+    
     
     
 }
@@ -296,14 +319,21 @@ void CoreMechanics::beginTerminalLoop(string startingDir){
         
         if(input == "cd"){
             if(inputStream >> input){
-                if(isSupportedDir(input) and currentDirLocationGET() != "myhome"){
-                    currentDirLocation = input;
+                if(isSupportedDir(input) and currentDirLocationGET() != "myhome" and currentDirLocationGET() != "Россия"){
+                    
+                    currentDirLocationSET(input);
                     updateDirPath();
                     dirStack.push(input);
                     cout << dirPath;
                 } else{
-                    cout << "please enter a valid directory\n";
-                    cout << dirPath;
+                    if (currentDirLocationGET() == "Россия") {
+                        cout << "ты не можешь сделать это здесь\n";
+                        cout << dirPath;
+                    }else{
+                        cout << "please enter a valid directory\n";
+                        cout << dirPath;
+                    }
+                    
                 }
             }
             else{ // if nothing after "cd" or invalid
@@ -316,11 +346,9 @@ void CoreMechanics::beginTerminalLoop(string startingDir){
             renderDirContents(currentDirLocation);
         }
         else if(input == "help"){
-            cout << "\n\nTerminal Commands:" << endl << "cd \'direectory name\' - navigates to specified directory\nls - lists the contents of current Dir\nrun - \'run exe files in terminal\'\nhelp - get a list of basic terminal commands and ones you have unlocked\nclear - clears the terminal screen\n";
+            cout << "\n\nTerminal Commands:" << endl << "cd \'direectory name\' - navigates to specified directory\nls - lists the contents of current Dir\nrun - \'run exe files in terminal\'\nhelp - get a list of basic terminal commands and ones you have unlocked\nclear - clears the terminal screen\nmission - this command displays current story objective\n";
             if(gamePlayer->hasCommand("read")){
                 cout << "read <txt fileName> - This command allows you to read the contents of the specified .txt file\n";
-            }if (gamePlayer->hasCommand("mission")) {
-                cout << "mission - this command displays current story objective\n";
             }
             if(currentDirLocationGET() != "myhome")
                 cout << "lsDirs - this will list out all the major directories that you can jump to\n";
@@ -346,7 +374,7 @@ void CoreMechanics::beginTerminalLoop(string startingDir){
             if(inputStream >> input){
                 // ideally we would check to make sure this is a valid command befiore running it
                 run(input);
-                if (finalSceneHappenedGET()) { // !!!: this will execute if they run literally anything
+                if (gameIsFinishedGET()) {
                     break;
                 }
             } else{
@@ -354,7 +382,7 @@ void CoreMechanics::beginTerminalLoop(string startingDir){
             }
             cout << dirPath;
         }
-        else if(input == "mission" && gamePlayer->hasCommand("mission")){
+        else if(input == "mission"){
             printObjective();
             cout << dirPath;
         }
@@ -417,12 +445,14 @@ void CoreMechanics::beginTerminalLoop(string startingDir){
 
 
 
-void CoreMechanics::read(string filename)const{
+void CoreMechanics::read(string filename){
     //TODO: make a textStorage class for all of this, call it whatever
     if(filename == "russianTransmission.txt"){
+        objectiveSET("Find those darned commy activ ation file (communistActivationFile.rus), use the capture command to store them in your inventory");
         string text = "\nMr.Shubert has no idea of our EVIL plan...\nwe should move forward with activation soon, just in time for wildcat week >:)\n i cant wait to activate our sleeper agent Phil Schubert to BODY SLAM the school spirit out of willy the wildcat\nas long as no one hacks into his computer and decypts our evil activation files (of which there are 3) and combines them to gain acces to our internal systems and shut down our evil plans forever then this missian is GOLDEN heh, man im so smart\n\nVlad's Diaries entry #21\n\n";
         printTextAnimation(text);
         if(gamePlayer->hasReadRussianTutorialGET() == false){
+            
             prompEnterToContinue();
             clearScreen();
             printTextAnimation("OOOOOOOWEEEEEEEEEE\nJust as i expected, Phil Schubert IS a russian sleeper agent!");
@@ -431,12 +461,12 @@ void CoreMechanics::read(string filename)const{
             prompEnterToContinue();
             
             clearScreen();
-            gamePlayer->addUnlockedCommand("mission");
+//            gamePlayer->addUnlockedCommand("mission");
             gamePlayer->addUnlockedCommand("inventory");
             gamePlayer->addUnlockedCommand("capture");
             gamePlayer->hasReadRussianTutorialSET(true);
             
-            printTextAnimation("you have unlocked the \'mission\', \'inventory\', and \'capture\' unix command\nmission will display your current game objective to progress the story\ncapture will allow you to transfer certain .bat and .rus files to you computers inventory and store them for later\ninventory will display any file you have captured\n");
+            printTextAnimation("you have unlocked the \'inventory\', and \'capture\' unix command\ncapture will allow you to transfer certain .bat and .rus files to you computers inventory and store them for later\ninventory will display any file you have captured\n");
             prompEnterToContinue();
         }
     }else{ //travis: add the contents of .txt files here before this last else statment
@@ -457,6 +487,13 @@ void CoreMechanics::run(string exeName){
         animationLoading(1, "загрузка ");
         animationLoading(1, "хорошо, это эпично ");
         animationLoading(1, "русский текст ");
+        currentDirLocationSET("Россия");
+        dirPathSET("Россия:~ компьютерпутина$ ");
+    }else if(exeName == "endCommySchemes.exe" and finalSceneHappenedGET() and currentDirLocationGET() == "Россия"){
+        clearScreen();
+        animationLoading(1, "Мистер Старк, я не чувствую себя так хорошо... ");
+        printTextAnimation(1, "Обычно, обе ваши задницы были бы мертвы, как ебаная жареная курица, но вам посчастливилось вытащить это дерьмо, пока я нахожусь в переходном периоде, поэтому я не хочу убивать вас, я хочу помочь вам. Но я не могу отдать тебе это дело, оно не принадлежит мне. Кроме того, я уже прошел через слишком много дерьма сегодня утром за это дело, чтобы передать его тебе.Ты видишь здесь Телепузиков? Ты видишь тонкую пластиковую бирку, прикрепленную к моей рубашке с моим именем? Вы видите маленького азиатского ребенка с пустым выражением лица, Сидящего снаружи на механическом вертолете, который трясется, когда вы кладете в него четвертаки? Нет? Ну, это то, что вы видите в магазине игрушек. И ты, наверное, думаешь, что ты в магазине игрушек, потому что ты здесь покупаешь ребенка по имени ДжебТвои кости не ломаются, мои ломаются. Это понятно. Ваши клетки реагируют на бактерии и вирусы иначе, чем мои. Ты не заболеешь, а я заболею. Это тоже совершенно очевидно. Но почему-то мы с тобой реагируем точно так же на воду. Мы глотаем слишком быстро, мы задыхаемся. Если что-то попадет в легкие, мы утонем. Как бы нереально это ни казалось, мы связаны, ты и я. мы находимся на одной кривой, только на противоположных концах.Обычно, обе ваши задницы были бы мертвы, как ебаная жареная курица, но вам посчастливилось вытащить это дерьмо, пока я нахожусь в переходном периоде, поэтому я не хочу убивать вас, я хочу помочь вам. Но я не могу отдать тебе это дело, оно не принадлежит мне. Кроме того, я уже прошел через слишком много дерьма сегодня утром за это дело, чтобы передать его тебеОбычно, обе ваши задницы были бы мертвы, как ебаная жареная курица, но вам посчастливилось вытащить это дерьмо, пока я нахожусь в переходном периоде, поэтому я не хочу убивать вас, я хочу помочь вам. Но я не могу отдать тебе это дело, оно не принадлежит мне. Кроме того, я уже прошел через слишком много дерьма сегодня утром за это дело, чтобы передать его тебе.Теперь, когда мы знаем, кто ты, я знаю, кто я. Я не ошибся! Все это имеет смысл! В комиксе ты знаешь, как определить, кто будет главным злодеем? Он полная противоположность герою. И чаще всего они друзья, как ты и я! Я должен был знать, когда именно... Ты знаешь почему, Дэвид? Из-за детей. Они называли меня Мистер Гласс.Твои кости не ломаются, мои ломаются. Это понятно. Ваши клетки реагируют на бактерии и вирусы иначе, чем мои. Ты не заболеешь, а я заболею. Это тоже совершенно очевидно. Но почему-то мы с тобой реагируем точно так же на воду. Мы глотаем слишком быстро, мы задыхаемся. Если что-то попадет в легкие, мы утонем. Как бы нереально это ни казалось, мы связаны, ты и я. мы находимся на одной кривой, только на противоположных концах.Ну, то, как они делают шоу, они делают одно шоу. Это шоу называется пилот. Затем они показывают это шоу людям, которые делают шоу, и на основании этого шоу они решают, будут ли они делать больше шоу. Некоторые пилоты выбираются и становятся телевизионными программами. Некоторые нет, становятся ничем. Она снялась в одной из тех, что стали ничем.Путь праведника окружен со всех сторон беззакония себялюбивые и тирания злых людей. Блажен тот, кто во имя милосердия и доброй воли, пастухи слабых через долину тьмы, ибо Он воистину страж брату своему и спаситель детей заблудших. И я обрушу на тебя великую месть и ярость на тех, кто попытается отравить и уничтожить моих братьев. И ты узнаешь, что меня зовут Господь, когда я возложу на тебя свою месть.Теперь, когда мы знаем, кто ты, я знаю, кто я. Я не ошибся! Все это имеет смысл! В комиксе ты знаешь, как определить, кто будет главным злодеем? Он полная противоположность герою. И чаще всего они друзья, как ты и я! Я должен был знать, когда именно... Ты знаешь почему, Дэвид? Из-за детей. Они называли меня Мистер Гласс.Теперь, когда есть Tec-9, дерьмовый пистолет-распылитель из?");
+        gameIsFinishedSET(true);
     }else{
         cout << "No exe file named: \'" << exeName << "\'\n"; // Basic response
     }

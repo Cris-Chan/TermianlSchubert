@@ -10,7 +10,7 @@ using namespace std;
 
 class CoreMechanics{
 private:
-    string directories[13];
+    string directories[14];
 //    string nakedPath;
     string dirPath;
     string commands[6];
@@ -22,6 +22,7 @@ private:
     string objective;
     vector<string> majorDirs;
     bool finalSceneHappened;
+    bool gameIsFinished;
 public:
     CoreMechanics(User* player){
 //        nakedPath = "~";
@@ -29,9 +30,9 @@ public:
         dirPath = "Schubert:~ philSchubertMacBook$ ";
         populateDir();
         populateCommands();
-        dirCount = 13;
+        dirCount = 14;
         currentDirLocation = "home";
-        objective = "progress";
+        objective = "Look around Mr.Schubert's computer (sorry Mr.Schubert) and find where he stores all the grades!\n";
         majorDirs.push_back("home");
         majorDirs.push_back("desktop");
         majorDirs.push_back("downloads");
@@ -43,6 +44,7 @@ public:
         captureableFiles.push_back("TerminalPassword.bat");
         
         finalSceneHappened = false;
+        gameIsFinished = false;
     }
     
     void populateDir();
@@ -50,19 +52,21 @@ public:
     void passedCommand(string command) const;
     
     //GETTER
+    bool gameIsFinishedGET()const{return gameIsFinished;}
     string dirPathGET()const{return dirPath;}
     string currentDirLocationGET()const{return currentDirLocation;}
-    string objectiveGET(){return objective;}
-    bool finalSceneHappenedGET(){return finalSceneHappened;}
+    string objectiveGET()const{return objective;}
+    bool finalSceneHappenedGET()const{return finalSceneHappened;}
     
     //SETTER
+    void gameIsFinishedSET(bool input){gameIsFinished = input;}
     void dirPathSET(string value){dirPath = value;}
     void currentDirLocationSET(string value){currentDirLocation = value;}
     void objectiveSET(string value){objective = value;}
     void finalSceneHappenedSET(bool value){finalSceneHappened = value;}
     
     
-    void printObjective(){
+    void printObjective()const{
         cout << "\nCurrent objective: " << objectiveGET() << endl;
     }
     
@@ -73,6 +77,7 @@ public:
     
     void clearScreen()const;
     void printTextAnimation(const string& message)const;
+    void printTextAnimation(int speed, const string& message)const;
     
     
     void prompEnterToContinue()const{
@@ -97,7 +102,7 @@ public:
     void cd(string dir); // unfinished
     void ls()const; // unfinished
     void help()const; // unfinished
-    void read(string filename)const; // unfinished
+    void read(string filename); // unfinished
     void run(string exeName);
     bool isSupportedDir(string dir)const;
     bool isCaptureReady(string file)const;
