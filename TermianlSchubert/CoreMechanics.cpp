@@ -14,15 +14,25 @@
 #include <thread>         // std::this_thread::sleep_for
 #include <chrono>
 #include <unistd.h>
-//#include "Story.h"
-//#include "CoreMechanics.h"
-//#include "User.h"
-//#include "SpoofedTerminalObject.h"
 using std::cout;
 using std::flush;
 using std::string;
 using std::this_thread::sleep_for;
 using std::chrono::milliseconds;
+
+//string directories[14];
+////    string nakedPath;
+//string dirPath;
+//string commands[6];
+//string currentDirLocation;
+//int dirCount;
+//User* gamePlayer;
+//stack<string> dirStack;
+//vector<string> captureableFiles;
+//string objective;
+//vector<string> majorDirs;
+//bool finalSceneHappened;
+//bool gameIsFinished;
 
 void CoreMechanics::populateDir(){
     // Every dir should be lower case
@@ -147,7 +157,7 @@ void CoreMechanics::renderDirContents(string currentDir){
     
     if(isSupportedDir(currentDir) != true and currentDirLocationGET() != "myhome" and currentDirLocationGET() != "Россия"){
         cout << "\n" << "-bash: cd: " << currentDir << " No such file or directory\n";
-        cout << dirPath;
+        cout << dirPathGET();
         return;
     }
     
@@ -160,7 +170,7 @@ void CoreMechanics::renderDirContents(string currentDir){
             cout << "Jerry's grades.grade\n";
             cout << "cookie recipie.grade\n";
             cout << "Prather's Grades.grade\n";
-            cout << dirPath;
+            cout << dirPathGET();
         }
         else{
             gamePlayer->addUnlockedCommand("read");
@@ -177,7 +187,7 @@ void CoreMechanics::renderDirContents(string currentDir){
             clearScreen();
             printTextAnimation("you have unlocked the \"read\" unix command *cue flashy sound effect*\nnow you can read .txt files whenever you want\n");
             prompEnterToContinue();
-            cout << dirPath;
+            cout << dirPathGET();
         }
     }
     
@@ -188,7 +198,7 @@ void CoreMechanics::renderDirContents(string currentDir){
         cout << "topsecretfiles\n"; // this should require sudo access
         cout << "downloads\n";
         
-        cout << dirPath;
+        cout << dirPathGET();
     }
     
     if(currentDir == "desktop"){
@@ -200,7 +210,7 @@ void CoreMechanics::renderDirContents(string currentDir){
         cout << "workFiles\n";
 //        cout << "notes2.txt\n";
 //        cout << "notes4.txt\n";
-        cout << dirPath;
+        cout << dirPathGET();
     }
     if(currentDir == "workFiles"){
         cout << "\nwork_agenda.txt\n"; //TRAVIS
@@ -212,7 +222,7 @@ void CoreMechanics::renderDirContents(string currentDir){
         cout << "\nwildcatLogo.psd";
         cout << "\norderMcdonalds.exe\n"; //TODO: add mcdonalds.exe to run function
  
-        cout << dirPath;
+        cout << dirPathGET();
     }
     if(currentDir == "memeFolder"){
         cout << "\ngarfieldMemes.png\n";
@@ -221,7 +231,7 @@ void CoreMechanics::renderDirContents(string currentDir){
         cout << "russianMusic.mp3\n";
         cout << "communistActivationFile1.rus\n";
         
-        cout << dirPath;
+        cout << dirPathGET();
     }
     
     if(currentDir == "chromePasswords"){
@@ -232,7 +242,7 @@ void CoreMechanics::renderDirContents(string currentDir){
         cout << "googlePassword.txt\n"; //TRAVIS
         cout << "TerminalPassword.bat\n";
         cout << "spotifyPassword.txt\n"; //TRAVIS
-        cout << dirPath;
+        cout << dirPathGET();
     }
     
     if (currentDir == "movieScripts") {
@@ -240,7 +250,7 @@ void CoreMechanics::renderDirContents(string currentDir){
         cout << "\nlalaland.txt\n"; //TRAVIS
         cout << "shrek.txt\n"; //TRAVIS
         
-        cout << dirPath;
+        cout << dirPathGET();
     }
     
     
@@ -254,7 +264,7 @@ void CoreMechanics::renderDirContents(string currentDir){
         cout << "cat(5).png\n";
         cout << "cat(6).png\n";
         cout << "communistActivationFile2.rus\n";
-        cout << dirPath;
+        cout << dirPathGET();
     }
     
     if(currentDir == "topsecretfiles"){
@@ -264,14 +274,14 @@ void CoreMechanics::renderDirContents(string currentDir){
             cout << "reminder.txt\n"; //TRAVIS
             cout << "communistActivationFile3.rus\n";
         }
-        cout << dirPath;
+        cout << dirPathGET();
     }
     
     if(currentDir == "documents"){
         cout << "\nkungFuPandaMoviewScript.txt\n"; //TRAVIS
         cout << "newCookiesRecipe.pdf\n";
         cout << "acustudentgrades\n";
-        cout << dirPath;
+        cout << dirPathGET();
     }
     
     if(currentDir == "myhome"){ // !!!: this is not one of Schuberts Directories and should not be accessable from his macbook
@@ -283,7 +293,7 @@ void CoreMechanics::renderDirContents(string currentDir){
         temp =  gamePlayer->nameGET() + ":~ "+gamePlayer->nameGET()+"MacBook$ ";
         dirPathSET(temp);
         currentDirLocationSET("myhome");
-        cout << dirPath;
+        cout << dirPathGET();
     }
     
     if (currentDir == "Россия" and finalSceneHappenedGET()) {
@@ -292,7 +302,7 @@ void CoreMechanics::renderDirContents(string currentDir){
         cout << "endCommySchemes.exe\n";
         cout << "путинский дневник боб\n";
         cout << "тральщик.приложение\n";
-        cout << dirPath;
+        cout << dirPathGET();
     }
     
     
@@ -324,26 +334,26 @@ void CoreMechanics::beginTerminalLoop(string startingDir){
                     currentDirLocationSET(input);
                     updateDirPath();
                     dirStack.push(input);
-                    cout << dirPath;
+                    cout << dirPathGET();
                 } else{
                     if (currentDirLocationGET() == "Россия") {
                         cout << "ты не можешь сделать это здесь\n";
-                        cout << dirPath;
+                        cout << dirPathGET();
                     }else{
                         cout << "please enter a valid directory\n";
-                        cout << dirPath;
+                        cout << dirPathGET();
                     }
                     
                 }
             }
             else{ // if nothing after "cd" or invalid
                 cout << "please enter a valid directory\n";
-                cout << dirPath;
+                cout << dirPathGET();
             }
         }
         else if (input == "ls") {
 //            cout << "DEBUG: EMPTY REQUEST";
-            renderDirContents(currentDirLocation);
+            renderDirContents(currentDirLocationGET());
         }
         else if(input == "help"){
             cout << "\n\nTerminal Commands:" << endl << "cd \'direectory name\' - navigates to specified directory\nls - lists the contents of current Dir\nrun - \'run exe files in terminal\'\nhelp - get a list of basic terminal commands and ones you have unlocked\nclear - clears the terminal screen\nmission - this command displays current story objective\n";
@@ -358,17 +368,17 @@ void CoreMechanics::beginTerminalLoop(string startingDir){
             if (gamePlayer->hasCommand("capture")) {
                 cout << "capture <object> - this will capture any capturable object (mostly intended for .bat and .rus files)\n";
             }
-            cout << dirPath;
+            cout << dirPathGET();
         }
         else if(input == "read" and gamePlayer->hasCommand("read")){
             if(inputStream >> input){
                 read(input);
-                cout << dirPath;
+                cout << dirPathGET();
             }
         }
         else if(input == "clear"){
             clearScreen();
-            cout << dirPath;
+            cout << dirPathGET();
         }
         else if(input == "run"){
             if(inputStream >> input){
@@ -380,19 +390,19 @@ void CoreMechanics::beginTerminalLoop(string startingDir){
             } else{
                 cout << "To use run command, please enter the name of the .exe file\n you would like to run\n";
             }
-            cout << dirPath;
+            cout << dirPathGET();
         }
         else if(input == "mission"){
             printObjective();
-            cout << dirPath;
+            cout << dirPathGET();
         }
         else if(input == "lsDirs"){
             renderMajorDirs();
-            cout << dirPath;
+            cout << dirPathGET();
         }
         else if(input == "inventory" and gamePlayer->hasCommand("inventory")){
             gamePlayer->renderInventory();
-            cout << dirPath;
+            cout << dirPathGET();
         }
         else if(input == "capture" and gamePlayer->hasCommand("capture")){
             
@@ -433,10 +443,10 @@ void CoreMechanics::beginTerminalLoop(string startingDir){
                 
             }
             
-            cout << dirPath;
+            cout << dirPathGET();
         }
         else{
-            cout << dirPath;
+            cout << dirPathGET();
         }
     }
     
