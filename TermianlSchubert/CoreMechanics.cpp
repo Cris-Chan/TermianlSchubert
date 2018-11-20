@@ -205,7 +205,7 @@ void CoreMechanics::renderDirContents(string currentDir){
         cout << "\nHollow Knight.app\n";
         cout << "memeFolder\n";
         cout << "HotSauceCollage.psd\n";
-        cout << "dailynotes.txt\n"; //TRAVIS
+        cout << "dailynotes.txt\n";
         cout << "spotify.app\n";
         cout << "workFiles\n";
 //        cout << "notes2.txt\n";
@@ -213,14 +213,14 @@ void CoreMechanics::renderDirContents(string currentDir){
         cout << dirPathGET();
     }
     if(currentDir == "workFiles"){
-        cout << "\nwork_agenda.txt\n"; //TRAVIS
-        cout << "speech.txt"; //TRAVIS
+        cout << "\nwork_agenda.txt\n";
+        cout << "speech.txt";
         cout << "\nfunnyCats.png";
         cout << "\nchromePasswords";
         cout << "\nfantasyFootballLeague.excel";
         cout << "\nmovieScripts";
         cout << "\nwildcatLogo.psd";
-        cout << "\norderMcdonalds.exe\n"; //TODO: add mcdonalds.exe to run function
+        cout << "\norderMcdonalds.loo\n";
  
         cout << dirPathGET();
     }
@@ -237,18 +237,18 @@ void CoreMechanics::renderDirContents(string currentDir){
     if(currentDir == "chromePasswords"){
         //TODO: add all of these to the read fucntion
         cout << "\ngarfieldMemes.png\n";
-        cout << "acupassword.txt\n"; //TRAVIS
-        cout << "dominosPassword.txt\n"; //TRAVIS
-        cout << "googlePassword.txt\n"; //TRAVIS
+        cout << "acupassword.txt\n";
+        cout << "dominosPassword.mer\n";
+        cout << "googlePassword.mer\n";
         cout << "TerminalPassword.bat\n";
-        cout << "spotifyPassword.txt\n"; //TRAVIS
+        cout << "spotifyPassword.woo\n";
         cout << dirPathGET();
     }
     
     if (currentDir == "movieScripts") {
         //TODO: add these to the read function
-        cout << "\nlalaland.txt\n"; //TRAVIS
-        cout << "shrek.txt\n"; //TRAVIS
+        cout << "\nlalaland.txt\n";
+        cout << "shrek.txt\n";
         
         cout << dirPathGET();
     }
@@ -271,14 +271,14 @@ void CoreMechanics::renderDirContents(string currentDir){
         if(gamePlayer->isSudoUserGET() != true){
             cout << "\nThis directory can only be accessed by a sudo user....\nCome back once you have captured the TerminalPassword.bat file and elevated access to sudo\n";
         }else{
-            cout << "reminder.txt\n"; //TRAVIS
+            cout << "reminder.no\n";
             cout << "communistActivationFile3.rus\n";
         }
         cout << dirPathGET();
     }
     
     if(currentDir == "documents"){
-        cout << "\nkungFuPandaMoviewScript.txt\n"; //TRAVIS
+        cout << "\nkungFuPandaMoviewScript.pdf\n";
         cout << "newCookiesRecipe.pdf\n";
         cout << "acustudentgrades\n";
         cout << dirPathGET();
@@ -480,9 +480,31 @@ void CoreMechanics::read(string filename){
             printTextAnimation("you have unlocked the \'inventory\', and \'capture\' unix command\ncapture will allow you to transfer certain .bat and .rus files to you computers inventory and store them for later\ninventory will display any file you have captured\n");
             prompEnterToContinue();
         }
-    }else{ //travis: add the contents of .txt files here before this last else statment
+        
+    }else if(filename == "dailynotes.txt"){
+        cout << "Get lots of bread today. oooooweeeeeeeee, yes sir\n";
+    }else if(filename == "work_agenda.txt"){
+        cout << "agenda: play minesweeper and raise tuition\nepic style UwU\n";
+    }else if(filename == "speech.txt"){
+        cout << "Look, I'm not the one with the problem, okay? It's the world that seems to have a problem with ME! People take one look at me and go Aargh! Help! Run! A big stupid ugly ogre! They judge me before they even know me - that's why I'm better off alone..\n";
+    }else if(filename == "acupassword.txt"){
+        cout << "password\ns\n";
+    }else if(filename == "lalaland.txt\n"){
+        cout << "⣿⣿⣿⣿⣿⠟⠉⠁⠄⠄⠄⠈⠙⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿ ⣿⣿⣿⣿⠏⠄⠄⠄⠄⠄⠄⠄⠄⠄⠸⢿⣿⣿⣿⣿⣿⣿⣿⣿\n ⣿⣿⣿⣏⠄⡠⡤⡤⡤⡤⡤⡤⡠⡤⡤⣸⣿⣿⣿⣿⣿⣿⣿⣿ ⣿⣿⣿⣗⢝⢮⢯⡺⣕⢡⡑⡕⡍⣘⢮⢿⣿⣿⣿⣿⣿⣿⣿⣿\n ⣿⣿⣿⣿⡧⣝⢮⡪⡪⡪⡎⡎⡮⡲⣱⣻⣿⣿⣿⣿⣿⣿⣿⣿ ⣿⣿⣿⠟⠁⢸⡳⡽⣝⢝⢌⢣⢃⡯⣗⢿⣿⣿⣿⣿⣿⣿⣿⣿\n ⣿⠟⠁⠄⠄⠄⠹⡽⣺⢽⢽⢵⣻⢮⢯⠟⠿⠿⢿⣿⣿⣿⣿⣿ ⡟⢀⠄⠄⠄⠄⠄⠙⠽⠽⡽⣽⣺⢽⠝⠄⠄⢰⢸⢝⠽⣙⢝⢿\n ⡄⢸⢹⢸⢱⢘⠄⠄⠄⠄⠄⠈⠄⠄⠄⣀⠄⠄⣵⣧⣫⣶⣜⣾ ⣧⣬⣺⠸⡒⠬⡨⠄⠄⠄⠄⠄⠄⠄⣰⣿⣿⣿⣿⣿⣷⣽⣿⣿\n ⣿⣿⣿⣷⠡⠑⠂⠄⠄⠄⠄⠄⠄⠄⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿ ⣿⣿⣿⣿⣄⠠⢀⢀⢀⡀⡀⠠⢀⢲⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿\n ⣿⣿⣿⣿⣿⢐⢀⠂⢄⠇⠠⠈⠄⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿ ⣿⣿⣿⣿⣧⠄⠠⠈⢈⡄⠄⢁⢀⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿\n ⣿⣿⣿⣿⣿⡀⠠⠐⣼⠇⠄⡀⠸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿ ⣿⣿⣿⣿⣯⠄⠄⡀⠈⠂⣀⠄⢀⠄⠈⣿⣿⣿⣿⣿⣿⣿⣿⣿\n ⣿⣿⣿⣿⣿⣶⣄⣀⠐⢀⣸⣷⣶⣶⣶⣿⣿⣿⣿⣿⣿⣿⣿⣿ I'm gnot a gnelf, I'm gnot a gnoblin, I'm a gnome! And you've been... gnomed!\n";
+    }else if(filename == "shrek.txt"){
+        cout << "reminder: pirate shrek 2 later\n";
+    }else if(filename == "ShoppingList.txt"){
+        cout << "eggs\nmoreeggs\neggs :)\n";
+    }else if(filename == "acupassword.txt"){
+        cout << "password\ns\n";
+    }else if(filename == "acupassword.txt"){
+        cout << "password\ns\n";
+    }else if(filename == "acupassword.txt"){
+        cout << "password\ns\n";
+    }else{
         cout << "unreadable......\n";
     }
+
 }
 
 void CoreMechanics::run(string exeName){
