@@ -7,12 +7,12 @@
 //
 
 #include <iostream>
-#include "Story.h"
+//#include "Story.h"
 #include "CoreMechanics.h"
 //#include "User.h"
 using namespace std;
 int main() {
-    Story mainStory;
+//    Story mainStory;
     User *hero = new User();
     CoreMechanics core(hero);
     string tempString;
