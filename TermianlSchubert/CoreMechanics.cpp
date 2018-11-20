@@ -318,6 +318,7 @@ void CoreMechanics::beginTerminalLoop(string startingDir){
     
     if(startingDir == "myhome"){
         renderDirContents("myhome");
+        objectiveSET("run hackPhilSchubert.exe");
     }
     string input;
     
@@ -491,6 +492,7 @@ void CoreMechanics::run(string exeName){
         currentDirLocationSET("home");
         dirStack.push("home");
         updateDirPath();
+        objectiveSET("Look around Mr.Schubert's computer (sorry Mr.Schubert) and find where he stores all the grades!\n")
     }else if(exeName == "internetExplorer.exe"){
             cout << "System Prompt: who the heck uses internet explorer, \n please run somthing, ANYTHNING better than internet explorer\n";
     }else if(exeName == "hackTheRussians.exe" and finalSceneHappenedGET()){

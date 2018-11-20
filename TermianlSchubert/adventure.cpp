@@ -48,6 +48,8 @@ int main() {
     // from here on most of the game is within the fake terminal shell (most likely will make a new obejct for this instead of making "core" object handle it)
     
 //    core.renderDirContents("myhome");
+    core.clearScreen();
+    core.printTextAnimation("to get a nice useful list of unlocked commands, type out 'help'\n");
     core.beginTerminalLoop("myhome");
     
     core.clearScreen();
